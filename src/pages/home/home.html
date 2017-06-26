@@ -16,11 +16,13 @@
 </ion-content>
 
 <ion-footer>
-  <div id="page-button-bar2" class="button-bar">
-    <button ion-button id="feed-button" color="dark" outline>Feed</button>
-    <button ion-button id="toilet-button" color="dark" outline>Toilet</button>
-    <button ion-button id="play-button" color="dark" outline>Play</button>
-    <button ion-button id="health-button" color="dark" outline>Health</button>
-    <button ion-button id="light-button" color="dark" outline>Ligth</button>
+  <div class="button-bar">
+  	<!-- Criar evento de "clique"
+  	https://www.tutorialspoint.com/ionic/ionic_js_events.htm -->
+    <button ion-button (click)="feed()" id="feed-button" color="dark" outline>Feed</button>
+    <button ion-button (click)="toilet()" id="toilet-button" color="dark" outline>Toilet</button>
+    <button ion-button (click)="play()" id="play-button" color="dark" outline>Play</button>
+    <button ion-button (click)="health()" id="health-button" color="dark" outline>Health</button>
+    <button ion-button (click)="ligth()" id="light-button" color="dark" outline>Ligth</button>
   </div>
 </ion-footer>
