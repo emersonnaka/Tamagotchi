@@ -11,4 +11,24 @@ export class HomePage {
 
   }
 
+  feed() {
+  	console.log("Aumenta hunger")
+  }
+
+  toilet() {
+  	console.log("Toilet")
+  }
+
+  play() {
+  	console.log("Play")
+  }
+
+  health() {
+  	console.log("Health")
+  }
+
+  ligth() {
+  	console.log("Ligth")
+  }
+
 }
