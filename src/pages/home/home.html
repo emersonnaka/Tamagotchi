@@ -1,17 +1,30 @@
 <ion-header>
   <div class="bar bar-header">
     <div class="row">
-      <div class="col">Happy</div>
-      <div class="col">Hunger</div>
-      <div class="col">Health</div>
-      <div class="col">Energy</div>
+      <div class="col">
+        <p>Happy</p>
+        <p id="happy-text"></p>
+      </div>
+      <div class="col">
+        <p>Hunger</p>
+        <p id="hunger-text"></p>
+      </div>
+      <div class="col">
+        <p>Health</p>
+        <p id="health-text"></p>
+      </div>
+      <div class="col">
+        <p>Energy</p>
+        <p id="energy-text"></p>
+      </div>
     </div>
   </div>
 </ion-header>
 
-<ion-content padding>
+<ion-content id="content" padding>
+  <p id="state-text">
+  </p>
 
-  
 
 </ion-content>
 
@@ -19,10 +32,25 @@
   <div class="button-bar">
   	<!-- Criar evento de "clique"
   	https://www.tutorialspoint.com/ionic/ionic_js_events.htm -->
-    <button ion-button (click)="feed()" id="feed-button" color="dark" outline>Feed</button>
-    <button ion-button (click)="toilet()" id="toilet-button" color="dark" outline>Toilet</button>
-    <button ion-button (click)="play()" id="play-button" color="dark" outline>Play</button>
-    <button ion-button (click)="health()" id="health-button" color="dark" outline>Health</button>
-    <button ion-button (click)="ligth()" id="light-button" color="dark" outline>Ligth</button>
+    <button ion-button (click)="feed()" id="feed-button" color="dark" outline>
+      <ion-icon name="pizza"></ion-icon>
+    </button>
+
+    <button ion-button (click)="toilet()" id="toilet-button" color="dark" outline>
+      <ion-icon name="water"></ion-icon>
+    </button>
+
+    <button ion-button (click)="play()" id="play-button" color="dark" outline>
+      <ion-icon name="game-controller-b"></ion-icon>
+    </button>
+
+    <button ion-button (click)="health()" id="health-button" color="dark" outline>
+      <ion-icon name="heart"></ion-icon>
+    </button>
+
+    <button ion-button (click)="ligth()" id="light-button" color="dark" outline>
+      <ion-icon name="sunny"></ion-icon>
+    </button>
+
   </div>
 </ion-footer>
