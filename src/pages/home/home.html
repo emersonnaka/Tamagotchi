@@ -40,28 +40,39 @@
 </ion-content>
 
 <ion-footer>
-  <div class="button-bar">
-  	<!-- Criar evento de "clique"
-  	https://www.tutorialspoint.com/ionic/ionic_js_events.htm -->
-    <button ion-button (click)="feed()" id="feed-button" color="dark" outline>
-      <ion-icon name="pizza"></ion-icon>
-    </button>
 
-    <button ion-button (click)="toilet()" id="toilet-button" color="dark" outline>
-      <ion-icon name="water"></ion-icon>
-    </button>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button block (click)="feed()" id="feed-button" color="dark" outline>
+          <ion-icon name="pizza"></ion-icon>
+        </button>
+      </ion-col>
 
-    <button ion-button (click)="play()" id="play-button" color="dark" outline>
-      <ion-icon name="game-controller-b"></ion-icon>
-    </button>
+      <ion-col>
+        <button ion-button block (click)="toilet()" id="toilet-button" color="dark" outline>
+          <ion-icon name="water"></ion-icon>
+        </button>
+      </ion-col>
 
-    <button ion-button (click)="health()" id="health-button" color="dark" outline>
-      <ion-icon name="heart"></ion-icon>
-    </button>
+      <ion-col>
+        <button ion-button block (click)="play()" id="play-button" color="dark" outline>
+          <ion-icon name="game-controller-b"></ion-icon>
+        </button>
+      </ion-col>
 
-    <button ion-button (click)="ligth()" id="light-button" color="dark" outline>
-      <ion-icon name="sunny"></ion-icon>
-    </button>
+      <ion-col>
+        <button ion-button block (click)="health()" id="health-button" color="dark" outline>
+          <ion-icon name="heart"></ion-icon>
+        </button>
+      </ion-col>
 
-  </div>
+      <ion-col>
+        <button ion-button block (click)="ligth()" id="light-button" color="dark" outline>
+          <ion-icon name="sunny"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-footer>
