@@ -8,7 +8,6 @@ import { NavController } from 'ionic-angular';
 export class HomePage {
 
   private vPet: VPet;
-  readonly deltaTime: number = 500
 
   constructor(public navCtrl: NavController) {
     this.vPet = new VPet(70, 100, 50, 100, "normal", false);
@@ -34,9 +33,6 @@ export class HomePage {
   	this.vPet.setLight();
   }
 
-  update() {
-    this.vPet.update(500);
-  }
 }
 
 class VPet {
@@ -45,6 +41,7 @@ class VPet {
   readonly healthRate = 5;
   readonly hungerRate = 10;
   readonly energyRate = 5;
+  readonly deltaTime: number = 15000;
 
   private happy: number;
   private health: number;
@@ -61,14 +58,18 @@ class VPet {
     this.energy = energy;
     this.state = state;
     this.sleep = sleep;
+
+    setTimeout(() => this.insertText(), 1000);
+    setTimeout(() => this.updateGraphics(), 1000);
+    setInterval(() => this.update(), this.deltaTime);
   }
 
-  update(deltaTime) {
+  update() {
     
-    this.happy -= this.happyRate * (deltaTime / 100);
-    this.health -= this.healthRate * (deltaTime / 100);
-    this.hunger -= this.hungerRate * (deltaTime / 100);
-    this.energy -= this.energy * (deltaTime / 100);
+    this.happy -= Math.floor(Math.random() * 10) * (this.deltaTime / 1000);
+    this.health -= Math.floor(Math.random() * 10) * (this.deltaTime / 1000);
+    this.hunger -= Math.floor(Math.random() * 10) * (this.deltaTime / 1000);
+    this.energy -= Math.floor(Math.random() * 10) * (this.deltaTime / 1000);
 
     this.updateState();
 
@@ -79,7 +80,7 @@ class VPet {
     } else if(this.state == "tired") {
       this.hunger -= Math.floor(Math.random() * 10);
     } else if(this.state == "sleep") {
-      this.energy = this.addIncrement(this.energy, this.energy * deltaTime);
+      this.energy = this.addIncrement(this.energy, this.energy);
     }
 
     this.updateText("happy-text", this.happy);
