@@ -10,7 +10,7 @@ export class HomePage {
   private vPet: VPet;
 
   constructor(public navCtrl: NavController) {
-    this.vPet = new VPet(70, 100, 50, 100, 'normal', false);
+    this.vPet = new VPet(70, 100, 50, 100, "normal", false);
   }
 
   play() {
@@ -18,7 +18,7 @@ export class HomePage {
   }
 
   toilet() {
-  	this.vPet.setHealth();
+  	this.vPet.setToilet();
   }
 
   feed() {
@@ -33,6 +33,9 @@ export class HomePage {
   	this.vPet.setLight();
   }
 
+  update() {
+    this.vPet.update(500);
+  }
 }
 
 class VPet {
@@ -61,57 +64,77 @@ class VPet {
 
   update(deltaTime) {
     
-    this.happy -= this.happyRate * (deltaTime / 1000);
-    this.health -= this.healthRate * (deltaTime / 1000);
-    this.hunger -= this.hungerRate * (deltaTime / 1000);
-    this.energy -= this.energy * (deltaTime / 1000);
-    if(this.energy < 0)
-      this.energy = 0;
+    this.happy -= this.happyRate * (deltaTime / 100);
+    this.health -= this.healthRate * (deltaTime / 100);
+    this.hunger -= this.hungerRate * (deltaTime / 100);
+    this.energy -= this.energy * (deltaTime / 100);
 
     this.updateState();
 
-    if(this.state == 'sad') {
+    if(this.state == "sad") {
       this.happy -= Math.floor(Math.random() * 10);
-    } else if(this.state == 'sick') {
+    } else if(this.state == "sick") {
       this.health -= Math.floor(Math.random() * 10);
-    } else if(this.state == 'tired') {
+    } else if(this.state == "tired") {
       this.hunger -= Math.floor(Math.random() * 10);
-    } else if(this.state == 'sleep') {
-      this.energy += this.energy * deltaTime;
-
+    } else if(this.state == "sleep") {
+      this.energy = this.addIncrement(this.energy, this.energy * deltaTime);
     }
+
+    this.updateText("happy-text", this.happy);
+    this.updateText("health-text", this.health);
+    this.updateText("hunger-text", this.hunger);
+    this.updateText("energy-text", this.energy);
 
   }
 
   updateState() {
-    if(this.happy < 25)
-      this.state = 'sad';
-    else if(this.health < 25 || this.hunger > 100)
-      this.state = 'sick';
-    else if(this.energy < 20) {
-      this.state = 'tired';
+    if(this.happy < 25) {
+      if(this.state != "sad") {
+        alert("Your vPet is sad!");
+      }
+      this.state = "sad";
+    } else if(this.health < 25 || this.hunger > 100) {
+      if(this.state != "sick") {
+        alert("Your vPet is sick!");
+      }
+      this.state = "sick";
+    } else if(this.energy < 20) {
+      if(this.state != "tired") {
+        alert("Your vPet is tired");
+      }
+      this.state = "tired";
+
       if(this.energy == 0) {
         this.sleep = true;
+        alert("Your vPet is very tired. It is going to sleep!");
         document.getElementById('content').style.background = "#336600";
       }
     }
+
     if(this.happy <= 0 || this.health <= 0 || this.hunger < 0 || this.hunger > 130) {
-      this.state = 'dead';
+      this.state = "dead";
       alert("Your vPet is dead!");
     }
 
+    if(this.state == "sad") {
+      if(this.happy <= 25)
+        this.state = "normal";
+    } else if(this.state == "sick") {
+      if(this.health > 75 && this.hunger <= 100)
+        this.state = "normal";
+    } else if(this.state == "tired") {
+      if(this.energy >= 20)
+        this.state = "normal";
+    }
+
+    this.updateGraphics();
     this.updateText("state-text", undefined ,this.state);
   }
 
-  getHappy(): number {
-    return this.happy;
-  }
-
   setHappy() {
-    this.happy += this.happyRate;
+    this.happy = this.addIncrement(this.happy, this.happyRate);
     this.energy -= this.energyRate;
-    if(this.energy < 0)
-      this.energy = 0;
     this.hunger -= this.hungerRate;
     this.health -= this.healthRate;
     this.updateState();
@@ -121,30 +144,31 @@ class VPet {
     this.updateText("health-text", this.health);
   }
 
-  getHealth(): number {
-    return this.health;
+  setToilet() {
+    this.energy = this.addIncrement(this.energy, this.energyRate);
+    this.health = this.addIncrement(this.health, this.healthRate * 10);
+    this.updateState();
+    this.updateText("energy-text", this.energy);
+    this.updateText("health-text", this.health);
   }
 
   setHealth() {
     if(this.state == 'sick') {
-      this.health += this.healthRate;
+      this.health = this.addIncrement(this.health, 25);
       this.happy -= this.happyRate;
       this.updateText("health-text", this.health);
       this.updateText("happy-text", this.happy);
       this.updateState();
+    } else {
+      alert("Your vPet isn't sick!");
     }
-  }
-
-  getHunger(): number {
-    return this.hunger;
   }
 
   setHunger() {
     this.hunger += this.hungerRate;
-    this.energy += this.energyRate;
-    if(this.energy < 0)
-      this.energy = 0;
-    this.health -= this.healthRate;
+    this.energy = this.addIncrement(this.energy, this.energyRate);
+    if(this.hunger > 90)
+      this.health -= this.healthRate;
     this.updateState();
     this.updateText("hunger-text", this.hunger);
     this.updateText("energy-text", this.energy);
@@ -159,10 +183,14 @@ class VPet {
       this.sleep = true;
       document.getElementById('content').style.background = "#336600";
     }
+    this.updateGraphics();
   }
 
-  getState(): string {
-    return this.state;
+  addIncrement(value: number, increment: number): number {
+    let result = value + increment;
+    if(result >= 100)
+      return 100;
+    return result;
   }
 
   updateText(idText: string, value?: number, state?: string) {
@@ -171,5 +199,19 @@ class VPet {
       document.getElementById(idText).innerHTML = value + '/' + 100;
     else
       document.getElementById(idText).innerHTML = this.state;
+  }
+
+  updateGraphics() {
+    document.getElementById("graphic").innerHTML = "";
+    if(this.state == "normal")
+      document.getElementById("graphic").innerHTML = "<img src=\"../../assets/Happy.gif\"/>";
+    else if(this.state == "sad")
+      document.getElementById("graphic").innerHTML = "<img src=\"../../assets/Sad.gif\"/>";
+    else if(this.state == "sick")
+      document.getElementById("graphic").innerHTML = "<img src=\"../../assets/Sick.gif\"/>";
+    else if(this.state == "dead")
+      document.getElementById("graphic").innerHTML = "<img src=\"../../assets/Dead.png\"/>";
+    if(this.sleep)
+      document.getElementById("graphic").innerHTML = "<img src=\"../../assets/Sleeping.gif\"/>";
   }
 }

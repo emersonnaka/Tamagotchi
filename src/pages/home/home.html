@@ -1,3 +1,7 @@
+<script type="text/javascript">
+  setInterval(update, 500);
+</script>
+
 <ion-header>
   <div class="bar bar-header">
     <div class="row">
@@ -22,9 +26,16 @@
 </ion-header>
 
 <ion-content id="content" padding>
-  <p id="state-text">
-  </p>
 
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <p id="state-text"></p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <p id="graphic" align="center"></p>
 
 </ion-content>
 
