@@ -8,6 +8,7 @@ import { NavController } from 'ionic-angular';
 export class HomePage {
 
   private vPet: VPet;
+  readonly deltaTime: number = 500
 
   constructor(public navCtrl: NavController) {
     this.vPet = new VPet(70, 100, 50, 100, "normal", false);
@@ -213,5 +214,13 @@ class VPet {
       document.getElementById("graphic").innerHTML = "<img src=\"../../assets/Dead.png\"/>";
     if(this.sleep)
       document.getElementById("graphic").innerHTML = "<img src=\"../../assets/Sleeping.gif\"/>";
+  }
+
+  public insertText() {
+    document.getElementById("happy-text").innerHTML = this.happy + '/' + 100;
+    document.getElementById("hunger-text").innerHTML = this.hunger + '/' + 100;
+    document.getElementById("health-text").innerHTML = this.health + '/' + 100;
+    document.getElementById("energy-text").innerHTML = this.energy + '/' + 100;
+    document.getElementById("state-text").innerHTML = this.state;
   }
 }

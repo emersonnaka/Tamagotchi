@@ -7,13 +7,11 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ProgressBarComponent
   ],
   imports: [
     BrowserModule,
