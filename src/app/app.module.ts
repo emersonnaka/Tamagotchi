@@ -16,11 +16,11 @@ import { HomePage } from '../pages/home/home';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot({
-      name: 'tamagotchi',
-      driverOrder: ['sqlite']
-      // https://www.webdevbr.com.br/sqlite-no-ionic-com-ngcordova
-    })
+    // IonicStorageModule.forRoot({
+    //   name: 'tamagotchi',
+    //   driverOrder: ['sqlite']
+    //   https://www.webdevbr.com.br/sqlite-no-ionic-com-ngcordova
+    // })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
