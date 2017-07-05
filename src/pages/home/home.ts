@@ -111,6 +111,8 @@ class VPet {
       this.state = "dead";
       alert("Your vPet is dead!");
       clearInterval(this.interval);
+      if(confirm("Deseja iniciar um novo vPet?"))
+        location.reload();
     }
 
     if(this.state == "sad") {
