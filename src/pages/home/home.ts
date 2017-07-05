@@ -218,7 +218,7 @@ class VPet {
       document.getElementById("graphic").innerHTML = "<img src=\"../../assets/Sick.gif\"/>";
     else if(this.state == "dead")
       document.getElementById("graphic").innerHTML = "<img src=\"../../assets/Dead.png\"/>";
-    else if(this.sleep)
+    if(this.sleep)
       document.getElementById("graphic").innerHTML = "<img src=\"../../assets/Sleeping.gif\"/>";
   }
 
